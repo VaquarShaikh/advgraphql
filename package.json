@@ -1,0 +1,20 @@
+{
+  "name": "boilerplatevaq",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-yoga/node": "^2.13.9",
+    "@types/node": "^18.7.13",
+    "graphql": "^16.6.0",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./bin/index.js",
+    "dev": "ts-node ./src/index.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
