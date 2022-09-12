@@ -21,3 +21,5 @@ export const startServer = async () => {
   await AppDataSource.initialize();
   await server.start();
 };
+
+startServer();
