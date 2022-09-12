@@ -28,11 +28,12 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon --exec ts-node --files src/index.ts",
-    "dev": "ts-node --files ./src/index.ts",
+    "test-server": "NODE_ENV=test ts-node --files src/index.ts",
+    "dev": "NODE_ENV=development ts-node --files ./src/index.ts",
     "vaq": "nodemon src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",

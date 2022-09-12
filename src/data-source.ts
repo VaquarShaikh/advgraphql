@@ -15,3 +15,18 @@ export const AppDataSource = new DataSource({
   migrations: ["src/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
 });
+
+export const testDataSource = new DataSource({
+  type: "postgres",
+  host: "localhost",
+  port: 5432,
+  username: "postgres",
+  password: "@Vaquar7113",
+  database: "graphql-for-jest",
+  synchronize: true,
+  logging: false,
+  dropSchema: true,
+  entities: ["src/entity/**/*.ts"],
+  migrations: ["src/migration/**/*.ts"],
+  subscribers: ["src/subscriber/**/*.ts"],
+});

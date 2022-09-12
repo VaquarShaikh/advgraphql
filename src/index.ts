@@ -5,6 +5,7 @@ import { join } from "path";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { resolvers } from "./resolvers";
+import { creatTypeormConn } from "./utils/createTypeormconn";
 
 export const startServer = async () => {
   const typeDefs = loadSchemaSync(join(__dirname, "schema.graphql"), {
@@ -18,7 +19,8 @@ export const startServer = async () => {
     },
   });
 
-  await AppDataSource.initialize();
+  // await AppDataSource.initialize();
+  await creatTypeormConn();
   await server.start();
 };
 
