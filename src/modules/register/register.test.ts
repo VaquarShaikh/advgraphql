@@ -1,10 +1,9 @@
 import { describe, expect, test } from "@jest/globals";
 import { request } from "graphql-request";
-import { host } from "./constants";
-import { AppDataSource } from "../data-source";
-import { User } from "../entity/User";
-import { creatTypeormConn } from "../utils/createTypeormconn";
-import { startServer } from "../startServer";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entity/User";
+import { creatTypeormConn } from "../../utils/createTypeormconn";
+import { startServer } from "../../startServer";
 import { AddressInfo } from "net";
 import { appendFile } from "fs";
 
@@ -36,5 +35,3 @@ test("Registration part", async () => {
   expect(user.email).toEqual(email);
   expect(user.password).not.toEqual(password);
 });
-
-// the server must start within the test file

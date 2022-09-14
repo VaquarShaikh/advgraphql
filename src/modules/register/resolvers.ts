@@ -1,11 +1,8 @@
 import { IResolvers } from "@graphql-tools/utils/typings/Interfaces";
 import bcrypt from "bcryptjs";
-import { User } from "./entity/User";
+import { User } from "../../entity/User";
 
 export const resolvers: IResolvers = {
-  Query: {
-    hello: (_, { name }) => `Hello from Yoga! ${name}`,
-  },
   Mutation: {
     register: async (
       _,
