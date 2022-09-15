@@ -6,6 +6,12 @@ import { creatTypeormConn } from "../../utils/createTypeormconn";
 import { startServer } from "../../startServer";
 import { AddressInfo } from "net";
 import { appendFile } from "fs";
+import {
+  duplicateEmail,
+  emailNotLongEnough,
+  invalidEmail,
+  passwordNotLongEnough,
+} from "./errorMessages";
 
 let getHost = () => "";
 
@@ -20,9 +26,9 @@ beforeAll(async () => {
 const email = "abcd1234@bob.com";
 const password = "abcd1234";
 
-const mutation = `
+const mutation = (e: string, p: string) => `
 mutation{
-  register(email: "${email}" , password:"${password}"){
+  register(email: "${e}" , password:"${p}"){
     path
     message
   }
@@ -30,14 +36,65 @@ mutation{
 `;
 
 test("Registration part", async () => {
-  const response = await request(getHost(), mutation);
+  // registration of a user
+  const response = await request(getHost(), mutation(email, password));
   expect(response).toEqual({ register: null });
   const users = await User.find({ where: { email } });
   expect(users).toHaveLength(1);
   const user = users[0];
   expect(user.email).toEqual(email);
   expect(user.password).not.toEqual(password);
-  const response1: any = await request(getHost(), mutation);
+
+  // test for duplicate emails
+  const response1: any = await request(getHost(), mutation(email, password));
   expect(await response1.register).toHaveLength(1);
-  expect(response1.register[0].path).toEqual("email");
+  expect(response1.register[0]).toEqual({
+    path: "email",
+    message: duplicateEmail,
+  });
+
+  // catch bad email
+  const response2: any = await request(getHost(), mutation("ba", password));
+  expect(response2).toEqual({
+    register: [
+      {
+        path: "email",
+        message: emailNotLongEnough,
+      },
+      {
+        path: "email",
+        message: invalidEmail,
+      },
+    ],
+  });
+
+  // catch bad password
+  const response3: any = await request(getHost(), mutation(email, "ad"));
+  expect(response3).toEqual({
+    register: [
+      {
+        path: "password",
+        message: passwordNotLongEnough,
+      },
+    ],
+  });
+
+  // catch bad password and email
+  const response4: any = await request(getHost(), mutation("df", "ad"));
+  expect(response4).toEqual({
+    register: [
+      {
+        path: "email",
+        message: emailNotLongEnough,
+      },
+      {
+        path: "email",
+        message: invalidEmail,
+      },
+      {
+        path: "password",
+        message: passwordNotLongEnough,
+      },
+    ],
+  });
 });
