@@ -31,7 +31,7 @@
     "vaq": "nodemon src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "test": "NODE_ENV=test jest --forceExit"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
