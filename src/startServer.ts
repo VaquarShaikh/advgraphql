@@ -12,6 +12,8 @@ import { mergeSchemas } from "@graphql-tools/schema";
 const { mergeResolvers } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 
+// The quicjobh kjsbdfkljasbfgkjarb
+
 export const startServer = async () => {
   const schemas: GraphQLSchema[] = [];
   const folders = fs.readdirSync(path.join(__dirname, "./modules"));
